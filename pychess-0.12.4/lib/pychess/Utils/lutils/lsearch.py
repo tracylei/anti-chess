@@ -185,12 +185,10 @@ def alphaBeta(board, depth, alpha=-MATE_VALUE, beta=MATE_VALUE, ply=0):
                      if not kingExplode(board, m, board.color)]
         moves = [(-getMoveValue(board, table, depth, m), m) for m in mlist]
     else:
-        if isCheck:
-            moves = [(-getMoveValue(board, table, depth, m), m)
-                     for m in genCheckEvasions(board)]
-        else:
-            moves = [(-getMoveValue(board, table, depth, m), m)
-                     for m in genAllMoves(board)]
+        mlist = [m for m in genCaptures(board)]
+        if not mlist and not isCheck:
+            mlist = [m for m in genAllMoves(board)]
+        moves = [(-getMoveValue(board, table, depth, m), m) for m in mlist]
     moves.sort()
 
     # This is needed on checkmate
