@@ -19,7 +19,7 @@ from pychess.Utils.lutils.perft import perft
 from pychess.Utils.lutils.LBoard import LBoard
 from pychess.Utils.lutils.ldata import MAXPLY
 from pychess.Utils.lutils import lsearch, leval
-from pychess.Utils.lutils.lmove import parseSAN, parseAny, toSAN, ParsingError
+from pychess.Utils.lutils.lmove import parseSAN, parseAny, toSAN, toPCN, ParsingError
 from pychess.Utils.lutils.lmovegen import genAllMoves, genCaptures, genCheckEvasions
 from pychess.Utils.lutils.validator import validateMove
 from pychess.System.Log import log
@@ -373,6 +373,14 @@ class PyChessCECP(PyChess):
 
                 elif lines[0] == "moves":
                     self.print(self.board.prepr(ascii=ASCII))
+                    captures = genCaptures(self.board)
+                    
+                    if(self.board.isCheck)
+                        print("Avoid check mate \n")
+                        self.print([toPCN(self.board, move)
+                               for m in genCheckEvasions(self.board)])
+                    elif(self.)
+                    print("All moves \n")
                     self.print([toPCN(self.board, move)
                                 for move in genAllMoves(self.board)])
 
