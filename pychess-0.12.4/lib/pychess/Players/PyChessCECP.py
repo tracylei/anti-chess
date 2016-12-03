@@ -375,7 +375,7 @@ class PyChessCECP(PyChess):
                     self.print(self.board.prepr(ascii=ASCII))
 
                     moves = []
-                    if self.board.isCheck:
+                    if self.board.isChecked():
                         print("In check!!!! Ah!!!\n")
                         moves = genCheckEvasions(self.board)
                     else:
