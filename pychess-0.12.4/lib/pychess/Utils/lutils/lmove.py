@@ -208,8 +208,8 @@ def toSAN(board, move, localRepr=False):
 
     part1 = reprCord[tcord]
 
-    if flag == DROP:
-        return "%s@%s%s" % (part0, part1, check_or_mate())
+    # if flag == DROP:
+    #     return "%s@%s%s" % (part0, part1, check_or_mate())
 
     if fpiece not in (PAWN, KING):
         xs = []
@@ -715,3 +715,61 @@ def parsePolyglot(board, pg):
         flag = ENPASSANT
 
     return newMove(fcord, tcord, flag)
+
+################################################################################
+# toPcn                                                                        #
+################################################################################
+
+
+def toPCN(board, playingAs, move):
+    def check_or_mate():
+        board_clone = board.clone()
+        board_clone.applyMove(move)
+        sign = ""
+        if board_clone.isChecked():
+            for altmove in genAllMoves(board_clone):
+                if board.variant == ATOMICCHESS:
+                    from pychess.Variants.atomic import kingExplode
+                    if kingExplode(board_clone, altmove, 1 - board_clone.color) and \
+                            not kingExplode(board_clone, altmove, board_clone.color):
+                        sign = "+"
+                        break
+                    elif kingExplode(board_clone, altmove, board_clone.color):
+                        continue
+                board_clone.applyMove(altmove)
+                if board_clone.opIsChecked():
+                    board_clone.popMove()
+                    continue
+                sign = "+"
+                break
+            else:
+                sign = "#"
+        return sign
+
+    """ Returns a Long/Expanded Algebraic Notation string of a move
+        board should be prior to the move """
+
+    fcord = FCORD(move)
+    tcord = TCORD(move)
+    flag = FLAG(move)
+
+    if flag == KING_CASTLE:
+        if playingAs == BLACK:
+            return "e8g8"+"%s" % check_or_mate()
+        else:
+            return "e1g1"+"%s" % check_or_mate()
+    elif flag == QUEEN_CASTLE:
+        if playingAs == BLACK:
+            return "e8c8"+"%s" % check_or_mate()
+        else:
+            return "e1c1"+"%s" % check_or_mate()
+
+    s = ""
+    s += reprCord[FCORD(move)]
+    s += reprCord[tcord]
+
+    if flag in PROMOTIONS:
+        s += reprSign[PROMOTE_PIECE(flag)]
+    s.lower()
+
+    return s

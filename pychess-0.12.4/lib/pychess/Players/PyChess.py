@@ -16,7 +16,7 @@ from pychess.Utils.const import WHITE, ASEANCHESS, SITTUYINCHESS, ATOMICCHESS, r
 from pychess.Utils.lutils import lsearch  # nopep8
 from pychess.Utils.lutils.ldata import MAXPLY  # nopep8
 from pychess.Utils.lutils.lsearch import alphaBeta  # nopep8
-from pychess.Utils.lutils.lmove import listToSan, toSAN  # nopep8
+from pychess.Utils.lutils.lmove import listToSan, toSAN, toPCN  # nopep8
 from pychess.System.Log import log  # nopep8
 
 
@@ -165,7 +165,7 @@ class PyChess(object):
             lsearch.searching = False
 
         move = mvs[0]
-        sanmove = toSAN(self.board, move)
+        sanmove = toPCN(self.board, self.playingAs, move)
         if ondone:
             ondone(sanmove)
         return sanmove
