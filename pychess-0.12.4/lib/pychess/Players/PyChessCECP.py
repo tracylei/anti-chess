@@ -373,8 +373,20 @@ class PyChessCECP(PyChess):
 
                 elif lines[0] == "moves":
                     self.print(self.board.prepr(ascii=ASCII))
+
+                    moves = []
+                    if self.board.isCheck:
+                        print("In check!!!! Ah!!!\n")
+                        moves = genCheckEvasions(self.board)
+                    else:
+                        moves = genCaptures(self.board)
+                        if not moves:
+                            print("No piece to capture\n")
+                            moves = genAllMoves(self.board)
+                        else:
+                            print("Must capture a piece\n")
                     self.print([toPCN(self.board, self.playingAs, move)
-                                for move in genAllMoves(self.board)])
+                               for move in moves])
 
                 elif lines[0] == "captures":
                     self.print(self.board.prepr(ascii=ASCII))
@@ -438,7 +450,7 @@ class PyChessCECP(PyChess):
         def ondone(result, move=""):
             if not self.forced:
                 self.board.applyMove(parseSAN(self.board, result))
-                self.print("move %s" % toPCN(self.board, self.playingAs, move))
+                self.print("%s" % toPCN(self.board, self.playingAs, move))
             # TODO: start pondering, if enabled
 
         self.thread = Thread(target=PyChess._PyChess__go,
