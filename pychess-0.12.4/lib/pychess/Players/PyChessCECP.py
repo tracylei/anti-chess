@@ -373,7 +373,7 @@ class PyChessCECP(PyChess):
 
                 elif lines[0] == "moves":
                     self.print(self.board.prepr(ascii=ASCII))
-                    self.print([toPCN(self.board, move)
+                    self.print([toPCN(self.board, self.playingAs, move)
                                 for move in genAllMoves(self.board)])
 
                 elif lines[0] == "captures":
