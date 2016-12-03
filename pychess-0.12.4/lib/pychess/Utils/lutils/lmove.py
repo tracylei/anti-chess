@@ -722,30 +722,6 @@ def parsePolyglot(board, pg):
 
 
 def toPCN(board, playingAs, move):
-    def check_or_mate():
-        board_clone = board.clone()
-        board_clone.applyMove(move)
-        sign = ""
-        if board_clone.isChecked():
-            for altmove in genAllMoves(board_clone):
-                if board.variant == ATOMICCHESS:
-                    from pychess.Variants.atomic import kingExplode
-                    if kingExplode(board_clone, altmove, 1 - board_clone.color) and \
-                            not kingExplode(board_clone, altmove, board_clone.color):
-                        sign = "+"
-                        break
-                    elif kingExplode(board_clone, altmove, board_clone.color):
-                        continue
-                board_clone.applyMove(altmove)
-                if board_clone.opIsChecked():
-                    board_clone.popMove()
-                    continue
-                sign = "+"
-                break
-            else:
-                sign = "#"
-        return sign
-
     """ Returns a Long/Expanded Algebraic Notation string of a move
         board should be prior to the move """
 
@@ -762,7 +738,7 @@ def toPCN(board, playingAs, move):
         if playingAs == BLACK:
             return "e8c8"+"%s" % check_or_mate()
         else:
-            return "e1c1"+"%s" % check_or_mate()
+            return "e"+"%s" % check_or_mate()
 
     s = ""
     s += reprCord[FCORD(move)]
