@@ -88,6 +88,7 @@ class PyChess(object):
             lsearch.skipPruneChance = self.skipPruneChance
             lsearch.searching = True
 
+            self.basetime = 500
             timed = self.basetime > 0
 
             if self.searchtime > 0:
