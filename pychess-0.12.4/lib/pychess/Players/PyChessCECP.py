@@ -373,14 +373,6 @@ class PyChessCECP(PyChess):
 
                 elif lines[0] == "moves":
                     self.print(self.board.prepr(ascii=ASCII))
-                    captures = genCaptures(self.board)
-                    
-                    if(self.board.isCheck)
-                        print("Avoid check mate \n")
-                        self.print([toPCN(self.board, move)
-                               for m in genCheckEvasions(self.board)])
-                    elif(self.)
-                    print("All moves \n")
                     self.print([toPCN(self.board, move)
                                 for move in genAllMoves(self.board)])
 
