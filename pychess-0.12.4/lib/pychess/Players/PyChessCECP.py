@@ -373,7 +373,7 @@ class PyChessCECP(PyChess):
 
                 elif lines[0] == "moves":
                     self.print(self.board.prepr(ascii=ASCII))
-                    self.print([toSAN(self.board, move)
+                    self.print([toPCN(self.board, move)
                                 for move in genAllMoves(self.board)])
 
                 elif lines[0] == "captures":
@@ -435,10 +435,10 @@ class PyChessCECP(PyChess):
             self.thread.join()
 
     def __go(self):
-        def ondone(result):
+        def ondone(result, move=""):
             if not self.forced:
                 self.board.applyMove(parseSAN(self.board, result))
-                self.print("move %s" % result)
+                self.print("move %s" % toPCN(self.board, self.playingAs, move))
             # TODO: start pondering, if enabled
 
         self.thread = Thread(target=PyChess._PyChess__go,

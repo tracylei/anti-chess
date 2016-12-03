@@ -166,9 +166,9 @@ class PyChess(object):
             lsearch.searching = False
 
         move = mvs[0]
-        sanmove = toPCN(self.board, self.playingAs, move)
+        sanmove = toSAN(self.board, move)
         if ondone:
-            ondone(sanmove)
+            ondone(sanmove, move)
         return sanmove
 
     def __analyze(self):
