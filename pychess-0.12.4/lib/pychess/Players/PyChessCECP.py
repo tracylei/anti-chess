@@ -374,15 +374,14 @@ class PyChessCECP(PyChess):
                 elif lines[0] == "moves":
                     self.print(self.board.prepr(ascii=ASCII))
 
-                    moves = []
+                    moves = [m for m in genCaptures(self.board)]
                     if self.board.isChecked():
                         print("In check!!!! Ah!!!\n")
-                        moves = genCheckEvasions(self.board)
+                        moves = [m for m in genCheckEvasions(self.board)]
                     else:
-                        moves = genCaptures(self.board)
                         if not moves:
                             print("No piece to capture\n")
-                            moves = genAllMoves(self.board)
+                            moves = [m for m in genAllMoves(self.board)]
                         else:
                             print("Must capture a piece\n")
                     self.print([toPCN(self.board, self.playingAs, move)
