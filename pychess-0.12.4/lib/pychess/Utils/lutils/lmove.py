@@ -731,14 +731,14 @@ def toPCN(board, playingAs, move):
 
     if flag == KING_CASTLE:
         if playingAs == BLACK:
-            return "e8g8"+"%s" % check_or_mate()
+            return "e8g8"
         else:
-            return "e1g1"+"%s" % check_or_mate()
+            return "e1g1"
     elif flag == QUEEN_CASTLE:
         if playingAs == BLACK:
-            return "e8c8"+"%s" % check_or_mate()
+            return "e8c8"
         else:
-            return "e"+"%s" % check_or_mate()
+            return "e1c1"
 
     s = ""
     s += reprCord[FCORD(move)]
