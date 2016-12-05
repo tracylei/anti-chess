@@ -42,7 +42,7 @@ class PyChessCECP(PyChess):
         self.analyzing = False
         self.thread = None
 
-        self.basetime = 0
+        self.basetime = 180
 
         self.features = {
             "ping": 1,
@@ -406,10 +406,11 @@ class PyChessCECP(PyChess):
 
                 elif lines[0] in ("black", "white"):
                     newColor = lines[0] == "black" and BLACK or WHITE
+                    print(newColor)
                     self.__stopSearching()
                     self.playingAs = 1 - newColor
                     if self.board.color != newColor:
-                        self.board.setColor(newColor)
+                        self.board.setColor(1 - newColor)
                         self.board.setEnpassant(None)
                     if lines[0] == "white" and not self.forced and not self.analyzing:
                         self.__go()
