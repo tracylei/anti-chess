@@ -405,16 +405,14 @@ class PyChessCECP(PyChess):
                         self.print("Error (arguments must be integer")
 
                 elif lines[0] in ("black", "white"):
-                    newColor = lines[0] == "white" and BLACK or WHITE
+                    newColor = lines[0] == "black" and BLACK or WHITE
                     self.__stopSearching()
-                    if lines[0] == "white":
-                        move = parseAny(self.board, "c2c3")
-                        self.board.applyMove(move)
-                        self.print("c2c3")
                     self.playingAs = 1 - newColor
                     if self.board.color != newColor:
                         self.board.setColor(newColor)
                         self.board.setEnpassant(None)
+                    if lines[0] == "white" and not self.forced and not self.analyzing:
+                        self.__go()
                     if self.analyzing:
                         self.__analyze()
 
