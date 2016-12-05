@@ -34,7 +34,7 @@ class PyChess(object):
         self.playingAs = WHITE
         self.ponder = False  # Currently unused
         self.post = False
-        self.debug = True
+        self.debug = False
         self.outOfBook = False
 
     def print(self, text):
