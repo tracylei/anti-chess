@@ -406,7 +406,6 @@ class PyChessCECP(PyChess):
 
                 elif lines[0] in ("black", "white"):
                     newColor = lines[0] == "black" and BLACK or WHITE
-                    print(newColor)
                     self.__stopSearching()
                     self.playingAs = 1 - newColor
                     if self.board.color != newColor:
