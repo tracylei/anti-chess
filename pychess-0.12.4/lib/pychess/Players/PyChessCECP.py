@@ -72,8 +72,6 @@ class PyChessCECP(PyChess):
         }
         python = sys.executable.split("/")[-1]
         python_version = "%s.%s.%s" % sys.version_info[0:3]
-        self.print("# %s [%s %s]" %
-                   (self.features["myname"], python, python_version))
 
     def handle_sigterm(self, *args):
         self.__stopSearching()
@@ -412,7 +410,7 @@ class PyChessCECP(PyChess):
                     if lines[0] == "white":
                         move = parseAny(self.board, "c2c3")
                         self.board.applyMove(move)
-                        print("c2c3")
+                        self.print("c2c3")
                     self.playingAs = 1 - newColor
                     if self.board.color != newColor:
                         self.board.setColor(newColor)
