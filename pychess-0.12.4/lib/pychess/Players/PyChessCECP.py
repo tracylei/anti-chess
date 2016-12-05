@@ -81,7 +81,18 @@ class PyChessCECP(PyChess):
         signal.signal(signal.SIGINT, signal.SIG_IGN)
         signal.signal(signal.SIGTERM, self.handle_sigterm)
 
-    def run(self):
+    def run(self, color):
+        newColor = color and BLACK or WHITE
+        self.__stopSearching()
+        self.playingAs = 1 - newColor
+        if self.board.color != newColor:
+            self.board.setColor(1 - newColor)
+            self.board.setEnpassant(None)
+        if color == "white" and not self.forced and not self.analyzing:
+            self.__go()
+        if self.analyzing:
+            self.__analyze()
+
         while True:
             try:
                 line = raw_input()
@@ -403,18 +414,6 @@ class PyChessCECP(PyChess):
                         perft(self.board, int(depth), int(root))
                     else:
                         self.print("Error (arguments must be integer")
-
-                elif lines[0] in ("black", "white"):
-                    newColor = lines[0] == "black" and BLACK or WHITE
-                    self.__stopSearching()
-                    self.playingAs = 1 - newColor
-                    if self.board.color != newColor:
-                        self.board.setColor(1 - newColor)
-                        self.board.setEnpassant(None)
-                    if lines[0] == "white" and not self.forced and not self.analyzing:
-                        self.__go()
-                    if self.analyzing:
-                        self.__analyze()
 
                 elif len(lines) == 1:
                     # A GUI without usermove support might try to send a move.

@@ -196,7 +196,7 @@ class PyChess(object):
 if __name__ == "__main__":
     import logging
     from pychess.Players.PyChessCECP import PyChessCECP
-    if len(sys.argv) == 1 or sys.argv[1:] == ["debug"]:
+    if len(sys.argv) == 1 or sys.argv[1] == "white" or sys.argv[1] == "black":
         if "debug" in sys.argv[1:]:
             log.logger.setLevel(logging.DEBUG)
         else:
@@ -208,4 +208,4 @@ if __name__ == "__main__":
         sys.exit(0)
 
     pychess.makeReady()
-    pychess.run()
+    pychess.run(sys.argv[1])
