@@ -43,6 +43,7 @@ class PyChessCECP(PyChess):
         self.thread = None
 
         self.basetime = 180
+        self.searchtime = 5
 
         self.features = {
             "ping": 1,
